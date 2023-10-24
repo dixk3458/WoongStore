@@ -1,4 +1,7 @@
 import { initializeApp } from 'firebase/app';
+
+import { getDatabase, ref, get } from 'firebase/database';
+
 import {
   getAuth,
   signInWithPopup,
@@ -17,6 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
+const database = getDatabase(app);
 
 provider.setCustomParameters({
   prompt: 'select_account',
@@ -31,7 +35,24 @@ export function logout() {
 }
 
 export function onUserStateChange(callback) {
-  onAuthStateChanged(auth, user => {
-    callback(user);
+  onAuthStateChanged(auth, async user => {
+    const updatedUser = user ? await adminUser(user) : null;
+
+    callback(updatedUser);
   });
+}
+
+async function adminUser(user) {
+  return get(ref(database, 'admins'))
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        const admins = snapshot.val();
+        const isAdmin = admins.includes(user.uid);
+        return { ...user, isAdmin };
+      }
+      return user;
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
