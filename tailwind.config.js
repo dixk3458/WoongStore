@@ -10,6 +10,11 @@ module.exports = {
         lightBrand: '#E7C8B8',
         darkBrand: '#8EAFBA',
       },
+      backgroundImage: {
+        firstBanner: `url('../public/images/banner1.png')`,
+        secondBanner: `url('../public/images/banner2.png')`,
+        thirdBanner: `url('../public/images/banner3.png')`,
+      },
     },
   },
   plugins: [],
