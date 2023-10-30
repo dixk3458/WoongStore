@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 
-import { getDatabase, ref, get, set } from 'firebase/database';
+import { getDatabase, ref, get, set, remove } from 'firebase/database';
 import { v4 as uuid } from 'uuid';
 
 import {
@@ -75,4 +75,21 @@ export async function getProducts() {
     }
     return [];
   });
+}
+
+export async function getCart(userId) {
+  return get(ref(database, `carts/${userId}`)) //
+    .then(snapshot => {
+      const item = snapshot.val() || {};
+      console.log(item);
+      return Object.values(item);
+    });
+}
+
+export async function addOrUpdateCart(userId, product) {
+  set(ref(database, `carts/${userId}/${product.id}`), product);
+}
+
+export async function removeCart(userId, productId) {
+  remove(ref(database, `carts/${userId}/${productId}`));
 }

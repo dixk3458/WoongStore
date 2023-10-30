@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
+import { addOrUpdateCart } from '../api/firebase';
 
 export default function ProductDetail() {
+  const { uid } = useAuthContext();
   const {
     state: {
       product: { id, image, title, category, price, description, options },
@@ -12,6 +15,9 @@ export default function ProductDetail() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    // 클릭이 되었을때 아이템을 추가 or 업데이트
+    const product = { id, image, title, price, option: selected, quantity: 1 };
+    addOrUpdateCart(uid, product);
   };
 
   const handleChange = e => {

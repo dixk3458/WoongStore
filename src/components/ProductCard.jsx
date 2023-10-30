@@ -25,12 +25,3 @@ export default function ProductCard({
     </li>
   );
 }
-
-{
-  /* <Link
-  to={`/products/${id}`}
-  state={{
-    product: { id, image, title, category, price, description, options },
-  }}
-></Link>; */
-}
