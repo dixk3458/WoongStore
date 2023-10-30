@@ -1,10 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProductCard({
-  product: { id, image, title, category, price, description },
+  product,
+  product: { id, image, title, category, price, description, options },
 }) {
+  const navigate = useNavigate();
+
   return (
-    <li className="relative rounded-lg shadow-md overflow-hidden cursor-pointer">
+    <li
+      onClick={() =>
+        navigate(`/products/${id}`, { state: { product: product } })
+      }
+      className="relative rounded-lg shadow-md overflow-hidden cursor-pointer"
+    >
       <img src={image} alt={title} className="w-full" />
       <div className="flex justify-between mt-2 p-2 text-lg">
         <h3>{title}</h3>
@@ -15,4 +24,13 @@ export default function ProductCard({
       </div>
     </li>
   );
+}
+
+{
+  /* <Link
+  to={`/products/${id}`}
+  state={{
+    product: { id, image, title, category, price, description, options },
+  }}
+></Link>; */
 }
