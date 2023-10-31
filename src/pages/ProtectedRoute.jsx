@@ -10,7 +10,7 @@ export default function ProtectedRoute({ children, requireAdmin }) {
       <div className="flex flex-col items-center justify-center gap-4">
         <svg
           aria-hidden="true"
-          class="w-40 h-40 mt-56 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-lightBrand "
+          className="w-40 h-40 mt-56 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-lightBrand "
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

@@ -81,7 +81,6 @@ export async function getCart(userId) {
   return get(ref(database, `carts/${userId}`)) //
     .then(snapshot => {
       const item = snapshot.val() || {};
-      console.log(item);
       return Object.values(item);
     });
 }
