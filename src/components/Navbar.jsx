@@ -11,7 +11,10 @@ export default function Navbar() {
 
   return (
     <header className="flex justify-between items-center border-b border-lightBorder">
-      <Link to={'/'} className="flex items-center text-4xl text-lightBrand">
+      <Link
+        to={'/'}
+        className="flex items-center text-xl text-lightBrand md:text-4xl"
+      >
         <img
           src="/images/logo.png"
           alt="WoongStore Logo"

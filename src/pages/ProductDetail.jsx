@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useAuthContext } from '../contexts/AuthContext';
-import { addOrUpdateCart } from '../api/firebase';
+import useCart from '../hooks/useCart';
 
 export default function ProductDetail() {
-  const { uid } = useAuthContext();
+  const [success, setSuccess] = useState();
   const {
     state: {
       product: { id, image, title, category, price, description, options },
     },
   } = useLocation();
 
+  const { addOrUpdateItem } = useCart();
+
   const [selected, setSelected] = useState(options && options[0]);
 
   const handleSubmit = e => {
     e.preventDefault();
-    // 클릭이 되었을때 아이템을 추가 or 업데이트
     const product = { id, image, title, price, option: selected, quantity: 1 };
-    addOrUpdateCart(uid, product);
+    addOrUpdateItem.mutate(product);
+    setSuccess('상품이 추가되었습니다.✅');
+    setTimeout(() => {
+      setSuccess(null);
+    }, 3000);
   };
 
   const handleChange = e => {
@@ -52,9 +56,12 @@ export default function ProductDetail() {
           })}
         </div>
         <p className="text-xl text-gray-500">{description}</p>
-        <button className="text-xl bg-lightBrand font-bold py-4 hover:brightness-110">
+        <button
+          className={`text-xl bg-lightBrand font-bold py-4 hover:brightness-110`}
+        >
           장바구니에 추가하기
         </button>
+        {success && <p className="text-center text-lg">{success}</p>}
       </form>
     </section>
   );

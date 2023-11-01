@@ -1,15 +1,12 @@
 import React from 'react';
 import { PiShoppingCartSimpleBold } from 'react-icons/pi';
-import { getCart } from '../api/firebase';
-import { useQuery } from '@tanstack/react-query';
-import { useAuthContext } from '../contexts/AuthContext';
+import useCart from '../hooks/useCart.jsx';
 
 export default function CartStatus() {
-  const { uid } = useAuthContext();
-  const { data: products } = useQuery({
-    queryKey: ['carts'],
-    queryFn: () => getCart(uid),
-  });
+  const {
+    cartQuery: { data: products },
+  } = useCart();
+
   return (
     <div className="relative">
       <PiShoppingCartSimpleBold className="text-4xl" />

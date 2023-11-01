@@ -1,24 +1,17 @@
 import React from 'react';
-import { getCart } from '../api/firebase';
-import { useQuery } from '@tanstack/react-query';
-import { useAuthContext } from '../contexts/AuthContext';
 import CartItem from '../components/CartItem';
 import PriceCard from '../components/PriceCard';
 import { FaEquals } from 'react-icons/fa';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
-import Banner from '../components/Banner';
 import Button from '../components/ui/Button';
+import useCart from '../hooks/useCart';
 
 const SHIPPING = 3000;
 
 export default function MyCart() {
-  const { uid } = useAuthContext();
-  const { isLoading, data: products } = useQuery({
-    queryKey: ['carts'],
-    queryFn: () => {
-      return getCart(uid);
-    },
-  });
+  const {
+    cartQuery: { isLoading, data: products },
+  } = useCart();
 
   const hasProducts = products && products.length > 0;
   const totalPrice =
@@ -32,17 +25,19 @@ export default function MyCart() {
 
   return (
     <div>
-      <Banner text="My Cart" image="menuBanner" />
+      <div className="bg-menuBanner flex justify-center items-center w-full h-96 opacity-80  bg-cover">
+        <h1 className="text-5xl text-lightBrand">My Cart</h1>
+      </div>
       <section className="p-8 flex flex-col">
-        {!hasProducts && <p>장바구니가 비었습니다.</p>}
+        {!hasProducts && (
+          <p className="text-center text-2xl mb-4">장바구니가 비었습니다.</p>
+        )}
         {hasProducts && (
           <>
             <ul className="border-b border-gray-300 mb-8 p-4 px-8">
               {products &&
                 products.map(product => {
-                  return (
-                    <CartItem key={product.id} product={product} uid={uid} />
-                  );
+                  return <CartItem key={product.id} product={product} />;
                 })}
             </ul>
             <div className="flex justify-between items-center mb-6 px-2 md:px-8 lg:px-16">
