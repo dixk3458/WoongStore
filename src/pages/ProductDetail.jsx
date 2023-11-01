@@ -33,14 +33,14 @@ export default function ProductDetail() {
 
   return (
     <section className="flex flex-col items-center md:flex-row">
-      <img src={image} alt={title} className="w-1/2" />
+      <img src={image} alt={title} className="w-4/5 md:w-1/2" />
       <form
         onSubmit={handleSubmit}
-        className="w-1/2 flex flex-col justify-center gap-4  p-8"
+        className="w-full text-sm  flex flex-col justify-center gap-2 p-8 md:gap-4  md:w-1/2 "
       >
-        <h1 className="text-4xl font-bold">{title}</h1>
-        <p className="text-3xl text-gray-500">{`₩ ${price}`}</p>
-        <p className="text-2xl text-gray-500">{category}</p>
+        <h1 className="text-lg font-boldmd:text-4xl ">{title}</h1>
+        <p className="text-lg text-gray-500 md:text-3xl ">{`₩ ${price}`}</p>
+        <p className="text-lg text-gray-500">{category}</p>
         <div>
           {options.map((option, index) => {
             return (
@@ -58,9 +58,9 @@ export default function ProductDetail() {
             );
           })}
         </div>
-        <p className="text-xl text-gray-500">{description}</p>
+        <p className="text-lg text-gray-500 md:text-xl ">{description}</p>
         <button
-          className={`text-xl bg-lightBrand font-bold py-4 hover:brightness-110`}
+          className={`bg-lightBrand text-lg font-bold py-4 hover:brightness-110 md:text-xl `}
         >
           장바구니에 추가하기
         </button>
