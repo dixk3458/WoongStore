@@ -16,7 +16,7 @@ export default function MyCart() {
   const { isLoading, data: products } = useQuery({
     queryKey: ['carts'],
     queryFn: () => {
-      getCart(uid);
+      return getCart(uid);
     },
   });
 
