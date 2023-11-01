@@ -5,7 +5,7 @@ import Banner from '../components/Banner';
 export default function Home() {
   return (
     <>
-      <Banner />
+      <Banner text="WoongStore" image="secondBanner" />
       <Products />
     </>
   );

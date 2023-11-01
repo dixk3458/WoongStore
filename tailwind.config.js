@@ -14,6 +14,7 @@ module.exports = {
         firstBanner: `url('../public/images/banner1.png')`,
         secondBanner: `url('../public/images/banner2.png')`,
         thirdBanner: `url('../public/images/banner3.png')`,
+        menuBanner: `url('../public/images/menu.png')`,
       },
     },
   },
