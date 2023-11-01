@@ -17,11 +17,14 @@ export default function ProductDetail() {
   const handleSubmit = e => {
     e.preventDefault();
     const product = { id, image, title, price, option: selected, quantity: 1 };
-    addOrUpdateItem.mutate(product);
-    setSuccess('상품이 추가되었습니다.✅');
-    setTimeout(() => {
-      setSuccess(null);
-    }, 3000);
+    addOrUpdateItem.mutate(product, {
+      onSuccess: () => {
+        setSuccess('상품이 추가되었습니다.✅');
+        setTimeout(() => {
+          setSuccess(null);
+        }, 3000);
+      },
+    });
   };
 
   const handleChange = e => {
@@ -61,7 +64,7 @@ export default function ProductDetail() {
         >
           장바구니에 추가하기
         </button>
-        {success && <p className="text-center text-lg">{success}</p>}
+        {success && <p className="my-2 text-center text-lg">{success}</p>}
       </form>
     </section>
   );
